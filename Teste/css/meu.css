@@ -1,0 +1,28 @@
+h1 {
+	text-align: center;
+	font-family: arial;
+	font-size: 100px;
+	color:lightblue;
+}
+h2{
+	text-align: center;
+	font-family: arial;
+	font-size: 55px;
+	color:yellow;
+}
+}
+p {
+	text-align: center;
+	background-color: white;
+	color:black;
+}
+
+.italic {
+	font-style: italic;
+	font-size: 25px;
+	color: darkblue;
+	background-color: white;
+}
+#id1 {
+	background-color: white;
+}
