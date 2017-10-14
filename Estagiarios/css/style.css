@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+
+/*base*/
+body {
+	background-color: #ffffdd; 
+}
+
+h1 {
+	color: lightblue;
+	text-align: center;
+}
+
+a.Perfil {
+	text-decoration: none;
+}
+.coluna {
+	
+	padding: 5px;
+	width: 100%;
+	min-height: 100px;
+	
+}
+.container {
+	background: rgba(100, 100, 100, 0.2);	
+	border: 1px solid black;
+
+}
+
+.container:hover {
+	background: rgba(100, 100, 100, 1);
+}
+
+img.portrait {
+	width: 100px;
+	height:100px;
+	float:left;
+}
+
+div.fillerPortrait {
+	clear: both;
+}
+
+p.description {	
+	min-height: 100px;
+	padding: 2px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	font-family: Helvetica;
+	color: black;
+	overflow: auto;
+}
+	p.tipo {
+	min-height: 1em;
+	float:right;
+	width: 25%;
+	height: auto;
+	border: 0px; 
+  	padding: 0px;
+  	margin: 0px;
+  	text-align: center;  	
+  	font-size: 140%;
+  	background-color: lightblue;
+}
+
+#Title {
+	font-size: 3em;
+	font-style: italic;
+}
+
+@media (min-width: 1200px) {
+.coluna-l {
+	float: left;
+	width: 33%;
+	
+}
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+	.coluna-m {
+		float:left;
+		width: 50%;
+	}
+	#last {
+		width: 100%;
+	}
+}
