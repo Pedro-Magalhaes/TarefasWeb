@@ -14,6 +14,7 @@ h1 {
 
 a.Perfil {
 	text-decoration: none;
+
 }
 .coluna {
 	
@@ -73,7 +74,7 @@ p.description {
 @media (min-width: 1200px) {
 .coluna-l {
 	float: left;
-	width: 33%;
+	width: 33.3333%;
 	
 }
 }
