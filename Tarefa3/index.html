@@ -4,35 +4,92 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <title>Food Page</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
+
 <body>
-  <nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar">Chiken</span>
-        <span class="icon-bar">Beef</span>
-        <span class="icon-bar">Sushi</span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">         
+          <div>
+            <a class="navbar-brand" href="#" id="NomePrincipal">
+              Hambuguer Goumet
+            </a>
+          </div>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="collapsable-nav" class="collapse navbar-collapse">
+   <ul id="nav-list" class="nav navbar-nav navbar-right">
+    <li class="hidden-lg hidden-md hidden-sm">
+      <a href="#Frango">
+        <span class="glyphicon glyphicon-cutlery"></span> Frango</a>
+    </li>
+    <li class="hidden-lg hidden-md hidden-sm">
+      <a href="#Carne">
+        <span class="glyphicon glyphicon-info-sign"></span> Carne</a>
+    </li>
+    <li class="hidden-lg hidden-md hidden-sm">
+      <a href="#Sushi">
+        <span class="glyphicon glyphicon-certificate"></span> Sushi</a>
+  
+    </ul><!-- #nav-list -->
+    </div><!-- .collapse .navbar-collapse -->
+      </div>
+    </nav>
+  </header>
+            
+  <div class="col-md-4 col-sm-12 col-xs-12">
+    <div class="container">
+    <h3 class="tipo" id="Frango">
+      Frango
+    </h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+    </p>    
+      <a href="#" class="visible-xs">
+        <span></span> Top
+      </a>
+    
     </div>
   </div>
-</nav>
-
-  <h1>Hello Coursera!</h1>
+  <div class="col-md-4 col-sm-12 col-xs-12">    
+    <div class="container">
+    <h3 class="tipo" id="Carne">
+      Carne
+    </h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+    </p>
+    <a href="#" class="visible-xs">
+        <span></span> Top
+    </a>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-12 col-xs-12" id="last">  
+    <div class="container">
+    <h3 class="tipo" id="Sushi">
+      Sushi
+    </h3>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum perferendis nisi, vitae et assumenda enim sapiente accusantium odit molestias excepturi iusto laboriosam repellendus, voluptate, suscipit maxime eaque cum mollitia corrupti. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem a eos ea voluptas fugiat! Atque blanditiis rem magni aspernatur sunt non recusandae ipsa doloremque, architecto. Eligendi dolor iusto dolores accusamus.
+    </p>
+    <a href="#" class="visible-xs">
+        <span></span> Top
+    </a>
+    </div>
+  </div>  
 
 
   <!-- jQuery (Bootstrap JS plugins depend on it) -->

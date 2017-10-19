@@ -1,3 +1,45 @@
- p {
- 	font-size: 3em;
- }
+header {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+#nav-list > li {
+	background-color: white;
+	border: solid;
+}
+
+div.container {
+	width: 100%;
+	background-color: gray;
+}
+
+#collapsable-nav {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.navbar-header, .container-fluid,.container {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+#nav-list {
+	padding-top: 0px;
+  margin-top: 0px;
+}
+#nav-list a {
+  color: lightblue;
+  text-align: center;
+}
+#nav-list a:hover {
+  background: #E7E7E7;
+}
+#nav-list a span {
+  font-size: 1.8em;
+}
+
+@media (max-width: 991px) {
+	div.container {
+	margin-top: 5px;
+	padding: auto;
+}
+}
