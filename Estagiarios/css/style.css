@@ -29,6 +29,14 @@ a.Perfil {
 
 }
 
+div:last-child .container {
+	background: rgba(190, 100, 100, 0.5);
+}
+
+div:last-child .container:hover {
+	background: rgba(190, 100, 100, 1);
+}
+
 .container:hover {
 	background: rgba(100, 100, 100, 1);
 }
@@ -54,6 +62,7 @@ p.description {
 	overflow: auto;
 }
 	p.tipo {
+	
 	min-height: 1em;
 	float:right;
 	width: 25%;
@@ -64,6 +73,16 @@ p.description {
   	text-align: center;  	
   	font-size: 140%;
   	background-color: lightblue;
+}
+
+span.trait {
+	line-height: 0.5;
+	font-weight: 300;
+	font-size: 70%;
+	color:black;
+}
+#su {
+	line-height: 0.5;
 }
 
 #Title {
@@ -86,4 +105,8 @@ p.description {
 	#last {
 		width: 100%;
 	}
+}
+
+#Suellen {
+	color: purple;
 }
