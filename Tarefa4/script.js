@@ -41,7 +41,7 @@ WARNING!!! WARNING!!!
   // using the 'speak' method or either helloSpeaker's or byeSpeaker's
   // 'speak' method.
   // See Lecture 50, part 1
-  for (var i =0; i<names.length; i++) {
+  for (var i = 0; i < names.length; i++) {
     var nome=names[i];
     // STEP 11:
     // Retrieve the first letter of the current name in the loop.
@@ -57,7 +57,7 @@ WARNING!!! WARNING!!!
     // 'j'. If the same, call byeSpeaker's 'speak' method with the current name
     // in the loop. Otherwise, call helloSpeaker's 'speak' method with the current
     // name in the loop.
-    if (firstLetter==='j') {
+    if (firstLetter === 'j') {
       byeSpeaker.speak(nome);
     } else {
       helloSpeaker.speak(nome);
