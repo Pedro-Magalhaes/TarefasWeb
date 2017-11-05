@@ -167,7 +167,7 @@ function criaSlope() {
 		0xfff002,
 		0xf00f00,
 		0xf0b5ff,
-	];
+	];	
 	var alturas = [
 		80/3,
 		80/3,
@@ -176,6 +176,7 @@ function criaSlope() {
 	//drawSlope(angulo,altura)
 	mySlope.drawSlope(app.stage);
 	mySlope.drawLayers(alturas,colors,app.stage);
+	//console.log(mySlope);
 }	
 function resizeMe() {
 	var width = divApp.clientWidth;
@@ -203,6 +204,6 @@ window.addEventListener("resize",resizeMe);
 
 criaSlope();
 
-console.log(mySlope);
+
    
        
