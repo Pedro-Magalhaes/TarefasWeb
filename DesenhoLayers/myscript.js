@@ -1,180 +1,208 @@
+function Slope(angle,height,color) {
+	this.angle = angle;
+	this.height = height;
+	this.factor1 = 2;
+	this.factor2 = 2;
+	this.factor3 = 2;
+	this.color = color;
+	this.heightLeft = height;//vou usar pra ver se a altura das layers vai passar do talude
+	this.layers = [];	
+}
+
 //função sendo chamada dentro da drawSlope
-function drawLayers(heights,inicialPoints,colors,totalHeight,angle,mystage) {
-    /*
+Slope.prototype.drawLayers = function(heights,colors,mystage) {
+	/*
         D       C
 
     A           B
     */
-    if (heights==undefined || heights == null){
-        console.log("não ha layers a desenhar");
-        return
-    }
-    var MARGIN = 0.01; //margem de erro pra comparação de float
+	if (heights==undefined || heights == null){
+		console.log("não ha layers a desenhar");
+		return;
+	}
+	var MARGIN = 0.01; //margem de erro pra comparação de float
 
-    var alturaRestante = totalHeight;   
+	for (var i = 0; i < heights.length; i++) { 
+		var myLayer = new PIXI.Graphics();
+		myLayer.lineStyle(2,0xFFFFFF,1);
+		if ((this.heightLeft+MARGIN)-heights[i] < 0){
+			//raise error (como fazer?)
+			console.log("Erro de Altura, nao vou desenhar o layer",i,"e seguintes",heights,this.heightLeft);
+			break;
+		} 
+		else {
+			this.heightLeft-=heights[i]; 			          
+		}
+		var disp = heights[i]/Math.tan(Math.PI*this.angle/180);     
+		var layerA = {
+			x : this.inicialPoints[0].x,
+			y : this.inicialPoints[0].y
+		};
+		var layerB = {
+			x : this.inicialPoints[1].x,
+			y : layerA.y
+		};
+		var layerC = {
+			x : layerB.x,
+			y : layerB.y-heights[i]
+		};
+		var layerD = {
+			x : layerA.x+disp,
+			y : layerC.y
+		};
+		//tornando os inicial points os ultimos da layer
+		this.inicialPoints[0]=layerD;
+		this.inicialPoints[1]=layerC;
 
-    for (var i = 0; i < heights.length; i++) { 
-        var myLayer = new PIXI.Graphics();
-        myLayer.lineStyle(2,0xFFFFFF,1);
-        if ((alturaRestante+MARGIN)-heights[i] < 0){
-            //raise error (como fazer?)
-            console.log("Erro de Altura, nao vou desenhar o layer",i,"e seguintes",heights,totalHeight);
-            break;
-        } 
-        else {
-            alturaRestante-=heights[i];            
-        }
-        var disp = heights[i]/Math.tan(Math.PI*angle/180);     
-        var layerA = {
-            x : inicialPoints[0].x,
-            y : inicialPoints[0].y
-        }
-        var layerB = {
-            x : inicialPoints[1].x,
-            y : layerA.y
-        }
-        var layerC = {
-            x : layerB.x,
-            y : layerB.y-heights[i]
-        }
-        var layerD = {
-            x : layerA.x+disp,
-            y : layerC.y
-        }
-        //tornando os inicial points os ultimos da layer
-        inicialPoints[0]=layerD;
-        inicialPoints[1]=layerC;
+		var layer = new PIXI.Polygon (
+			new PIXI.Point (layerA.x,layerA.y),
+			new PIXI.Point (layerB.x,layerB.y),
+			new PIXI.Point (layerC.x,layerC.y),
+			new PIXI.Point (layerD.x,layerD.y),
+			new PIXI.Point (layerA.x,layerA.y)
+		);
+		myLayer.alpha = 0.8; //só pra destacar
+		myLayer.beginFill(colors[i]);
+		myLayer.drawPolygon(layer);
+		myLayer.endFill();
+		myLayer.hitArea = layer;
+		myLayer.interactive = true;
+		myLayer.buttonMode = true;
 
-        var layerPath = new PIXI.Polygon(
-            new PIXI.Point (layerA.x,layerA.y),
-            new PIXI.Point (layerB.x,layerB.y),
-            new PIXI.Point (layerC.x,layerC.y),
-            new PIXI.Point (layerD.x,layerD.y),
-            new PIXI.Point (layerA.x,layerA.y),
-        )
-        myLayer.alpha = 0.8; //só pra destacar
-        myLayer.beginFill(colors[i]);
-        myLayer.drawPolygon(layerPath);
-        myLayer.endFill();
-        myLayer.hitArea = layerPath;
-        myLayer.interactive = true;
-        myLayer.buttonMode = true;
+		myLayer.mouseover = function (mouseData) {
+			this.alpha = 1;
+		};
+		myLayer.mouseout = function (mouseData) {
+			this.alpha = .8;
+		};
+		mystage.addChild(myLayer);
+	}
 
-        myLayer.mouseover = function (mouseData) {
-            this.alpha = 1;
-        };
-        myLayer.mouseout = function (mouseData) {
-            this.alpha = .8;
-        };
-        mystage.addChild(myLayer);
-    }
+};
 
-    //como alterei as coordenadas do slope depois de desenhar, tive que fazer o mesmo aqui
-
-    
-    
-}
-function drawSlope(angle,height,stage) {
-    /*
+Slope.prototype.generatePoints = function () {
+	/*
                D        C
                |->(height)
     F     E-----  
             disp
     A                   B
     */
-    //fatores multiplicativos do talude
-    var factor1 = 2; //fator que gera a altura de B até C
-    var factor2 = 2; //fator que gera o comprimento de F até E
-    var factor3 = 2; //fator que gera o comprimento de D até C
-
-
-    var baseX = 0;
-    //fazendo assim pois o P(0,0) fica no canto superior esquerdo
-    var baseY = app.renderer.view.height; //Y base é agora o canto inferior esquerdo
-    var slope = new PIXI.Graphics();
-    //slope.interactive=true;
-    //slope.buttonMode=true;
-    slope.lineStyle(2,0xFFFFFF,1);
+	//fatores multiplicativos do talude
+	//factor1 //fator que gera a altura de B até C
+	//factor2 //fator que gera o comprimento de F até E
+	//factor3 //fator que gera o comprimento de D até C
+	var baseX = 0;
+	//fazendo assim pois o P(0,0) fica no canto superior esquerdo
+	var baseY = app.renderer.view.height; //Y base é agora o canto inferior esquerdo
+	
     
     
-    var displacement = height/Math.tan(Math.PI*angle/180);    
-    var A = {
-        x:baseX,
-        y:baseY
-    }    
-    var B = {
-        x:factor2*factor3*height+displacement,
-        y:baseY
-            }
-    var C = {
-        x:B.x,
-        y:baseY-factor1*height
-    }
-    var D = {
-        x:C.x-factor2*height,
-        y:C.y
-    }
-    var E = {
-        x:factor2*height,
-        y:baseY-(factor1*height-height)
-    }
-    var F = {
-        x:0,
-        y:E.y
-    }    
-    //lista que liga todos os pontos do talude
-    var path = [
-        A.x,A.y,
-        B.x,B.y,
-        C.x,C.y,
-        D.x,D.y,
-        E.x,E.y,
-        F.x,F.y,
-        A.x,A.y
-    ]
-    slope.beginFill(0x00FFF0);
-    slope.drawPolygon(path);
-    slope.endFill();    
+	var displacement = this.height/Math.tan(Math.PI*this.angle/180);    
+	this.A = {
+		x:baseX,
+		y:baseY
+	};    
+	this.B = {
+		x:this.factor2*this.factor3*this.height+displacement,
+		y:baseY
+	};
+	this.C = {
+		x:this.B.x,
+		y:baseY-this.factor1*this.height
+	};
+	this.D = {
+		x:this.C.x-this.factor2*this.height,
+		y:this.C.y
+	};
+	this.E = {
+		x:this.factor2*this.height,
+		y:baseY-(this.factor1*this.height-this.height)
+	};
+	this.F = {
+		x:0,
+		y:this.E.y
+	};    
+};
 
-    //acessando variavel global stage, considerar receber por parametro
-    stage.addChild(slope);
+Slope.prototype.drawSlope = function (myStage) {
+	this.generatePoints();
+	//lista que liga todos os pontos do talude
+	var path = [
+		this.A.x,this.A.y,
+		this.B.x,this.B.y,
+		this.C.x,this.C.y,
+		this.D.x,this.D.y,
+		this.E.x,this.E.y,
+		this.F.x,this.F.y,
+		this.A.x,this.A.y
+	];
+	var slope = new PIXI.Graphics();
+	//slope.interactive=true;
+	//slope.buttonMode=true;
+	slope.lineStyle(2,0xFFFFFF,1);
+	slope.beginFill(this.color);
+	slope.drawPolygon(path);
+	slope.endFill();    
+	
+	myStage.addChild(slope);
 
-    /* arrumando as variaveis pra chamar o drawlayers */
-    C.y=E.y //mutreta pra nao ter que fazer outro ponto
-    var inicial = [
-        E,C
-    ]
-    var colors = [
-        0xfff002,
-        0xf00f00,
-        0xf0b5ff,
-    ]
-    var alturas = [
-        height/3,
-        height/3,
-        height/3
-    ]
-    //chamando a função de desenhar layers
-    drawLayers(alturas,inicial,colors,height,angle,stage);
-    
+	/* arrumando as variaveis do ponto inicial pra desenhar os layers */	
+	var pt1 = {
+		x : this.E.x,
+		y :	this.E.y
+	};
+	var pt2 = {
+		x : this.C.x,
+		y :	this.E.y
+	};
+	this.inicialPoints = [
+		pt1,pt2
+	];    
  
+};
+function criaSlope() {
+	var mySlope = new Slope(30,80,0x00FFF0);
+	var colors = [
+		0xfff002,
+		0xf00f00,
+		0xf0b5ff,
+	];
+	var alturas = [
+		80/3,
+		80/3,
+		80/3
+	];
+	//drawSlope(angulo,altura)
+	mySlope.drawSlope(app.stage);
+	mySlope.drawLayers(alturas,colors,app.stage);
+}	
+function resizeMe() {
+	var width = divApp.clientWidth;
+	var height = (9*width)/16; //16/9 aspect ratio
+	app.renderer.resize(width,height);
+	app.stage.removeChildren();
+	criaSlope();
 }
 
-var width = document.getElementById('canvas').clientWidth;
+
+var divApp = document.getElementById("canvas");
+var width = divApp.clientWidth;
 var height = (9*width)/16; //16/9 aspect ratio
 
+
 // pro render só precisa passar o width e o height o resto é opcional
-var app = new PIXI.Application(width, height,{backgroundColor : 0xffffff},{antialias:true},{transparent:true});
-//app.stage.position.set(width1/2, height2/2);
+var app = new PIXI.Application(
+	width, height,{backgroundColor : 0xeeeeee},{antialias:true}
+);
 
 //Add the canvas to the HTML document
-document.getElementById('canvas').appendChild(app.view);
+divApp.appendChild(app.view);
+window.addEventListener("resize",resizeMe);
+//app.stage.position.set(width1/2, height2/2);
 
-//Create a container object called the `stage`
-//var stage = new PIXI.Container();
+criaSlope();
 
-//drawSlope(angulo,altura)
-drawSlope(30,80,app.stage);
-
+console.log(mySlope);
    
        
