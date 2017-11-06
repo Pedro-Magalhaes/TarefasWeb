@@ -1,3 +1,15 @@
+function incrementaAngulo() {
+	meuAngulo+=1;
+	app.stage.removeChildren();
+	criaSlope(meuAngulo,minhaAltura,corSlope);
+}
+
+function decrementaAngulo() {
+	meuAngulo-=1;
+	app.stage.removeChildren();
+	criaSlope(meuAngulo,minhaAltura,corSlope);
+}
+
 function Slope(angle,height,color) {
 	this.angle = angle;
 	this.height = height;
@@ -21,7 +33,7 @@ Slope.prototype.drawLayers = function(heights,colors,mystage) {
 		return;
 	}
 	var MARGIN = 0.01; //margem de erro pra comparação de float
-
+	
 	for (var i = 0; i < heights.length; i++) { 
 		var myLayer = new PIXI.Graphics();
 		myLayer.lineStyle(2,0xFFFFFF,1);
@@ -44,7 +56,7 @@ Slope.prototype.drawLayers = function(heights,colors,mystage) {
 		};
 		var layerC = {
 			x : layerB.x,
-			y : layerB.y-heights[i]
+			y : layerB.y - heights[i]
 		};
 		var layerD = {
 			x : layerA.x+disp,
@@ -53,7 +65,7 @@ Slope.prototype.drawLayers = function(heights,colors,mystage) {
 		//tornando os inicial points os ultimos da layer
 		this.inicialPoints[0]=layerD;
 		this.inicialPoints[1]=layerC;
-
+		
 		var layer = new PIXI.Polygon (
 			new PIXI.Point (layerA.x,layerA.y),
 			new PIXI.Point (layerB.x,layerB.y),
@@ -104,20 +116,20 @@ Slope.prototype.generatePoints = function () {
 		y:baseY
 	};    
 	this.B = {
-		x:this.factor2*this.factor3*this.height+displacement,
+		x:this.factor2*this.factor3*this.height + displacement,
 		y:baseY
 	};
 	this.C = {
 		x:this.B.x,
-		y:baseY-this.factor1*this.height
+		y:baseY - this.factor1*this.height
 	};
 	this.D = {
-		x:this.C.x-this.factor2*this.height,
+		x:this.C.x - this.factor2*this.height,
 		y:this.C.y
 	};
 	this.E = {
 		x:this.factor2*this.height,
-		y:baseY-(this.factor1*this.height-this.height)
+		y:baseY - (this.factor1*this.height - this.height)
 	};
 	this.F = {
 		x:0,
@@ -161,8 +173,8 @@ Slope.prototype.drawSlope = function (myStage) {
 	];    
  
 };
-function criaSlope() {
-	var mySlope = new Slope(30,80,0x00FFF0);
+function criaSlope(angulo,heightTot,cor) {
+	var mySlope = new Slope(angulo,heightTot,cor);
 	var colors = [
 		0xfff002,
 		0xf00f00,
@@ -187,6 +199,11 @@ function resizeMe() {
 }
 
 
+/*		Parte que chama as funçoes do código     */
+var meuAngulo = 45;
+var minhaAltura = 80;
+var corSlope = 0x00FFF0;
+
 var divApp = document.getElementById("canvas");
 var width = divApp.clientWidth;
 var height = (9*width)/16; //16/9 aspect ratio
@@ -202,7 +219,7 @@ divApp.appendChild(app.view);
 window.addEventListener("resize",resizeMe);
 //app.stage.position.set(width1/2, height2/2);
 
-criaSlope();
+criaSlope(meuAngulo,minhaAltura,corSlope);
 
 
    
