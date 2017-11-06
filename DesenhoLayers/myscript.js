@@ -107,8 +107,6 @@ Slope.prototype.generatePoints = function () {
 	var baseX = 0;
 	//fazendo assim pois o P(0,0) fica no canto superior esquerdo
 	var baseY = app.renderer.view.height; //Y base é agora o canto inferior esquerdo
-	
-    
     
 	var displacement = this.height/Math.tan(Math.PI*this.angle/180);    
 	this.A = {
@@ -134,12 +132,14 @@ Slope.prototype.generatePoints = function () {
 	this.F = {
 		x:0,
 		y:this.E.y
-	};    
+	};  
 };
 
+
 Slope.prototype.drawSlope = function (myStage) {
+	
 	this.generatePoints();
-	//lista que liga todos os pontos do talude
+	//lista que liga todos os pontos do talude	
 	var path = [
 		this.A.x,this.A.y,
 		this.B.x,this.B.y,
@@ -149,6 +149,7 @@ Slope.prototype.drawSlope = function (myStage) {
 		this.F.x,this.F.y,
 		this.A.x,this.A.y
 	];
+	
 	var slope = new PIXI.Graphics();
 	//slope.interactive=true;
 	//slope.buttonMode=true;
@@ -195,7 +196,7 @@ function resizeMe() {
 	var height = (9*width)/16; //16/9 aspect ratio
 	app.renderer.resize(width,height);
 	app.stage.removeChildren();
-	criaSlope();
+	criaSlope(meuAngulo,minhaAltura,corSlope);
 }
 
 
