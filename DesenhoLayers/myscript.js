@@ -1,12 +1,14 @@
 function incrementaAngulo() {
 	meuAngulo+=1;
-	app.stage.removeChildren();
+	mySlope.clearSlope();
 	criaSlope(meuAngulo,minhaAltura,corSlope);
+	
 }
 
 function decrementaAngulo() {
 	meuAngulo-=1;
-	app.stage.removeChildren();
+	mySlope.clearSlope();
+	console.log(mySlope);
 	criaSlope(meuAngulo,minhaAltura,corSlope);
 }
 
@@ -18,8 +20,13 @@ function Slope(angle,height,color) {
 	this.factor3 = 2;
 	this.color = color;
 	this.heightLeft = height;//vou usar pra ver se a altura das layers vai passar do talude
-	this.layers = [];	
 }
+
+Slope.prototype.clearSlope=function () {
+	this.slope.clear();
+	this.slope.removeChildren();	
+}
+
 
 //função sendo chamada dentro da drawSlope
 Slope.prototype.drawLayers = function(heights,colors,mystage) {
@@ -35,7 +42,7 @@ Slope.prototype.drawLayers = function(heights,colors,mystage) {
 	var MARGIN = 0.01; //margem de erro pra comparação de float
 	
 	for (var i = 0; i < heights.length; i++) { 
-		var myLayer = new PIXI.Graphics();
+		var myLayer = new PIXI.Graphics();		
 		myLayer.lineStyle(2,0xFFFFFF,1);
 		if ((this.heightLeft+MARGIN)-heights[i] < 0){
 			//raise error (como fazer?)
@@ -87,7 +94,7 @@ Slope.prototype.drawLayers = function(heights,colors,mystage) {
 		myLayer.mouseout = function (mouseData) {
 			this.alpha = .8;
 		};
-		mystage.addChild(myLayer);
+		mySlope.slope.addChild(myLayer);
 	}
 
 };
@@ -106,7 +113,7 @@ Slope.prototype.generatePoints = function () {
 	//factor3 //fator que gera o comprimento de D até C
 	var baseX = 0;
 	//fazendo assim pois o P(0,0) fica no canto superior esquerdo
-	var baseY = app.renderer.view.height; //Y base é agora o canto inferior esquerdo
+	var baseY =0;// app.renderer.view.height; //Y base é agora o canto inferior esquerdo
     
 	var displacement = this.height/Math.tan(Math.PI*this.angle/180);    
 	this.A = {
@@ -150,16 +157,22 @@ Slope.prototype.drawSlope = function (myStage) {
 		this.A.x,this.A.y
 	];
 	
-	var slope = new PIXI.Graphics();
+	this.slope = new PIXI.Graphics();
 	//slope.interactive=true;
 	//slope.buttonMode=true;
-	slope.lineStyle(2,0xFFFFFF,1);
-	slope.beginFill(this.color);
-	slope.drawPolygon(path);
-	slope.endFill();    
+	this.slope.lineStyle(2,0xFFFFFF,1);
+	this.slope.beginFill(this.color);
+	this.slope.drawPolygon(path);
+	this.slope.endFill();    
 	
-	myStage.addChild(slope);
+	//vou fazer uma transformação pra dar um "fit" no desenho
+	var w = app.view.width-4;//vou colocar -4 pra dar um espaço de 2 pixels de cada lado (eixo X)
+	var distX = this.B.x - this.A.x;
+	var scale = w/distX;
+	this.slope.setTransform(2,app.view.height-2,scale,scale);//height -2 pra dar tbm espaço de 2px
 
+
+	myStage.addChild(this.slope);
 	/* arrumando as variaveis do ponto inicial pra desenhar os layers */	
 	var pt1 = {
 		x : this.E.x,
@@ -175,7 +188,7 @@ Slope.prototype.drawSlope = function (myStage) {
  
 };
 function criaSlope(angulo,heightTot,cor) {
-	var mySlope = new Slope(angulo,heightTot,cor);
+	mySlope = new Slope(angulo,heightTot,cor);
 	var colors = [
 		0xfff002,
 		0xf00f00,
@@ -194,13 +207,15 @@ function criaSlope(angulo,heightTot,cor) {
 function resizeMe() {
 	var width = divApp.clientWidth;
 	var height = (9*width)/16; //16/9 aspect ratio
-	app.renderer.resize(width,height);
-	app.stage.removeChildren();
-	criaSlope(meuAngulo,minhaAltura,corSlope);
+	app.renderer.resize(width,height);	
+	mySlope.clearSlope();
+	criaSlope(meuAngulo,minhaAltura,corSlope);	
+	
 }
 
 
 /*		Parte que chama as funçoes do código     */
+var mySlope;
 var meuAngulo = 45;
 var minhaAltura = 80;
 var corSlope = 0x00FFF0;
@@ -218,10 +233,8 @@ var app = new PIXI.Application(
 //Add the canvas to the HTML document
 divApp.appendChild(app.view);
 window.addEventListener("resize",resizeMe);
-//app.stage.position.set(width1/2, height2/2);
-
 criaSlope(meuAngulo,minhaAltura,corSlope);
 
-
+console.log(mySlope);
    
        
