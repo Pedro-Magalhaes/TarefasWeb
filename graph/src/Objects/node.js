@@ -1,4 +1,4 @@
-import Point from "point.js";
+//import Point from "point.js";
 
 class Node extends Point{
    // constructor(){}

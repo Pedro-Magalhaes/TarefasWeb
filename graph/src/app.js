@@ -18,8 +18,9 @@ var app = new PIXI.Application(512, 256,
     {antialias: true, transparent: false, resolution: 1,backgroundColor: 0xffff00}
     );
     
-    app.autoResize = true;
-document.body.appendChild(app.view);
+app.autoResize = true;
+
+document.getElementById("canvas-conteiner").appendChild(app.view);
 
 node[0].setXY(256,128);
 node[0].drawMe(app.stage);
@@ -42,3 +43,20 @@ app.render();
 
 
 
+function zoom(option) {
+    let oldScaleX = app.stage.scale.x;
+    let oldScaleY = app.stage.scale.y;
+    switch (option) {
+        case '+':
+            app.stage.setTransform(0,0,oldScaleX*1.1,oldScaleY*1.1);
+            break;
+        case '-':
+            app.stage.setTransform(0,0,oldScaleX*0.9,oldScaleY*0.9);
+            break;
+    
+        default:
+            console.log('invalid');
+        
+            break;
+    }
+}
