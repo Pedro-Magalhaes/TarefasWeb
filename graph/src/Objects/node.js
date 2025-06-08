@@ -1,14 +1,14 @@
 //import Point from "point.js";
 
-class Node extends Point{
-   // constructor(){}
-    constructor( content ) {
+class Node extends Point {
+    // constructor(){}
+    constructor(content) {
         super();
         this.r = 20;
         this.content = content;
     }
 
-    setXY(x,y) {
+    setXY(x, y) {
         this.x = x;
         this.y = y;
     }
@@ -25,24 +25,24 @@ class Node extends Point{
         this.r = r;
     }
 
-    setContent( content ) {
+    setContent(content) {
         this.content = content;
     }
 
     // recebe um content e desenha o circulo
     draw(graphic) {
-        graphic.drawCircle (this.x, this.y, this.r);
+        graphic.drawCircle(this.x, this.y, this.r);
     }
 
-    drawMe( stage ) {
-        const l = Math.floor( (this.r*2)*Math.sin(Math.PI/4) );
-        const m = new PIXI.Text(this.content); 
-        m.style = {wordWrap: true, wordWrapWidth: l}; // WordWrap nao esta funcionando, verificar
-        m.position.set(this.x,this.y);
+    drawMe(stage) {
+        const l = Math.floor((this.r * 2) * Math.sin(Math.PI / 4));
+        const m = new PIXI.Text(this.content);
+        m.style = { wordWrap: true, wordWrapWidth: l }; // WordWrap nao esta funcionando, verificar
+        m.position.set(this.x, this.y);
         m.anchor.set(0.5); // anchor 0.5 centraliza o texto na posição que for colocado
         const g = new PIXI.Graphics();
-        
-        g.lineStyle(1,0x000FF0,1);
+
+        g.lineStyle(1, 0x000FF0, 1);
         g.beginFill(0xFFFFFF);
         this.draw(g);
         g.endFill();
@@ -51,43 +51,42 @@ class Node extends Point{
 
     }
 
-    connect( node ) {
-        return  this.intersectCircle( node );
+    connect(node) {
+        return this.intersectCircle(node);
     }
 
-    intersectCircle ( node ) {
-        let m = (node.y - this.y) / ( node.x - this.x ); // inclinação da reta
-        let c = ( m * this.x ) - this.y ; // y = mx + c
-        let v1 = {};
-        let v2 = {};
-        v1.x = this.x - node.x;
-        v1.y = this.y - node.y;
-        v2.x = 0;
-        v2.y = 0;
-        let b = (v1.x * v2.x + v1.y * v2.y);
-        c = 2 * (v1.x * v1.x + v1.y * v1.y);
-        b *= -2;
-        let d = Math.sqrt(b * b - 2 * c * (v2.x * v2.x + v2.y * v2.y - this.r * this.r));
-        if(isNaN(d)){ // no intercept
-            console.log("Nenhum ponto d = ",d)
-            return [];            
-        }
-        let u1 = (b - d) / c;  // these represent the unit distance of point one and two on the line
-        let u2 = (b + d) / c;    
-        let retP1 = {};   // return points
-        let retP2 = {}  
-        let ret = []; // return array
-        if(u1 <= 1 && u1 >= 0){  // add point if on the line segment
-            retP1.x = this.x + v1.x * u1;
-            retP1.y = this.y + v1.y * u1;
-            ret[0] = retP1;
-        }
-        if(u2 <= 1 && u2 >= 0){  // second add point if on the line segment
-            retP2.x = this.x + v1.x * u2;
-            retP2.y = this.y + v1.y * u2;
-            ret[ret.length] = retP2;
-        }
-        console.log("Intersects: " + ret)
-        return ret;
+    /**
+     * Calculates the intersection point(s) between the line segment from this node to another node and this node's circle.
+     * Returns the first intersection point found on the segment, or an empty array if there is no intersection.
+     *
+     * @param {Object} node - The target node with properties `x` and `y` representing its position.
+     * @returns {Point|undefined} The intersection point as a `Point` object if found, otherwise `undefined`.
+     */
+    intersectCircle(node) {
+        // Vector from this node to the other node
+        const dx = node.x - this.x;
+        const dy = node.y - this.y;
+
+        // Quadratic coefficients for intersection
+        const a = dx * dx + dy * dy;
+
+        if (a === 0) return undefined; // Degenerate case
+
+        // Find u where the intersection occurs
+        const u1 = this.r / Math.sqrt(a);
+        const u2 = -this.r / Math.sqrt(a);
+
+        let ret = [];
+        // Only consider intersections on the segment [0,1]
+        [u1, u2].forEach(u => {
+            if (u >= 0 && u <= 1) {
+                const p = new Point();
+                p.x = this.x + dx * u;
+                p.y = this.y + dy * u;
+                ret.push(p);
+            }
+        });
+
+        return ret; // Return the first intersection, or undefined if none
     }
 }

@@ -1,6 +1,46 @@
 #canvas {
-    
-    width: 50%;
+    width: 70%;
     float: right;
+    height: 100px;
+}
+
+.controlls {
+    button {
+        cursor: pointer;
+        width: fit-content;
+        height: 30px;
+        color: white;
+        background-color: rgb(61, 17, 194);
+        border: none;
+        border-radius: 5px;
+        margin: 5px;
+        &:hover {
+            background-color: rgb(15, 181, 223);
+        }
+        &:active {
+            background-color: rgb(29, 5, 95);
+        }
+        &:focus {
+            outline: none;
+        }
+        &:disabled {
+            background-color: lightgray;
+            color: darkgray;
+        }
+        &:disabled:hover {
+            background-color: lightgray;
+        }
+        &:disabled:active {
+            background-color: lightgray;
+        }
+        &:disabled:focus {
+            outline: none;
+        }
+    }       
+}
+
+.left-side {
+    width: 30%;
+    float: left;
     height: 100px;
 }

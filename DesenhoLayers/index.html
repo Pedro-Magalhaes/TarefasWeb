@@ -12,9 +12,14 @@
 <body>
   
 <h1>Talude</h1>
-<div>
-  <input type="button" value="+" onclick="incrementaAngulo()">
-  <input type="button" value="-" onclick="decrementaAngulo()">
+<div class="left-side">
+  <div class="controlls"> 
+    <button id="angle-plus" onclick="incrementaAngulo()">plus</button>
+    <button id="angle-minus" onclick="decrementaAngulo()">minus</button>
+  </div>
+  <div class="selected-layer">
+    <div id="layer-container"></div>
+  </div>
 </div>
 <div id="canvas"> 
     <script src="myscript.js"> </script>

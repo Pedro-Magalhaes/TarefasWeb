@@ -1,0 +1,19 @@
+{
+  "name": "tarefasweb",
+  "version": "1.0.0",
+  "description": "npm geral para as tarefas web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pedro-Magalhaes/TarefasWeb.git"
+  },
+  "author": "Pedro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pedro-Magalhaes/TarefasWeb/issues"
+  },
+  "homepage": "https://github.com/Pedro-Magalhaes/TarefasWeb#readme"
+}
