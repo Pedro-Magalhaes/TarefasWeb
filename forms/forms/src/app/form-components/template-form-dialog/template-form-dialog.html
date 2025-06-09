@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Delete all elements?</h2>
+<mat-dialog-content>
+    <form>
+        <div class="form-group">
+            <label>Number of elements to delete</label>
+            <app-template-number-input 
+                [(ngModel)]="numberOfElementsToDelete"
+                name="numberOfElementsToDelete"
+                data-testid="number-of-elements-to-delete">
+            </app-template-number-input>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton mat-dialog-close>Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button matButton (click)="closeDialog()">Delete</button>
+</mat-dialog-actions>

@@ -1,0 +1,11 @@
+<input
+    class="number-input"
+    type="number"
+    [min]="min"
+    [max]="max"
+    [(ngModel)]="value"
+    name="value"
+    (blur)="onTouched()"
+    (keyup.enter)="onSubmit.emit()"
+    data-testid="file-selection-start-position"
+/>
